@@ -1,17 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import NavBar from './components/NavBar/NavBar'
-import ItemListContainer from './components/itemListContainer/ItemListContainer'
+import Navbar from './components/Navbar/Navbar'
+import ItemListContainer from './components/ItemListContainer/ItemListContainer'
+import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer'
+import ItemCount from './components/ItemCount/ItemCount'
 
-function App() {
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+const App = () => {
   return (
-      <div>
-        <NavBar/>
-        <ItemListContainer greeting={'Bienvenidos'}/>
-      </div>
-      
+    <>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path='/' element={<ItemListContainer greeting={'Bienvenidos a mi Ecommerce'}/>}/>
+          <Route path='/category/:categoryId' element={<ItemListContainer greeting={'Productos Filtrados'}/>}/>
+          <Route path='/item/:itemId' element={<ItemDetailContainer />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   )
 }
 
