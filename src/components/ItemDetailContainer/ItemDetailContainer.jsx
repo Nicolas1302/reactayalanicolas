@@ -1,49 +1,47 @@
-import { useEffect, useState } from "react"
-import { getProductById } from "../../asyncMock"
-import { useParams } from "react-router-dom"
-import ItemCount from "../ItemCount/ItemCount"
+import { useState, useEffect } from 'react' 
+// import { getProductById } from "../../asyncMock"
+import ItemDetail from '../ItemDetail/ItemDetail'
 
+import { getDoc, doc } from 'firebase/firestore'
+
+import { db } from '../../services/firebase/firebaseConfig'
+import { useParams } from 'react-router-dom'
 
 const ItemDetailContainer = () => {
     const [product, setProduct] = useState(null)
+
     const { itemId } = useParams()
-    
-    const [quantity,setQuantity] = useState(0)
-    
-    const handleOnAdd = (quantity) => {
-        setQuantity(quantity)
-    }
 
     useEffect(() => {
-        document.title = product ? product.name : 'Mi Ecommerce' 
+        const productRef = doc(db, 'products', itemId)
 
-        return () => document.title = 'Mi Ecommerce'
-    }, [product])
+        getDoc(productRef)
+            .then(querySnapshot => {
+                const fields = querySnapshot.data()
+                const productAdapted = { id: querySnapshot.id, ...fields }
 
-    useEffect(() => {
-
-        getProductById(itemId)
-            .then(response => {
-                setProduct(response)
+                setProduct(productAdapted)
             })
-            .catch(error => {
-                console.log(error)
-            })
+
+
+
+        // getProductById(itemId)
+        //     .then(response => {
+        //         setProduct(response)
+        //     })
+        //     .catch(error => {
+        //         console.log(error)
+        //     })
     }, [itemId])
 
-
     return (
-        <div className="text-center" >      
-            <h1>Detalle del producto</h1>
-            <h2>{product?.name}</h2>
-            <img src={product?.img} alt="" style={{ width: '300px', height: '250px'}}/>
-            {
-                quantity == 0 
-                ?(product?.stock > 0 ? <ItemCount stock={product?.stock} onAdd={handleOnAdd}/> : <p className="text-warning">No Hay Stock</p>)
-                :<button className="btn btn-warning" >Finalizar-Compra</button>      
-            }    
-        </div>  
+        <div>
+            <h1>Detalle de producto</h1>
+            <ItemDetail {...product} />
+        </div>
     )
 }
 
 export default ItemDetailContainer
+
+

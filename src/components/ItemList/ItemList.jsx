@@ -7,8 +7,8 @@ const ItemList = ({products}) => {
     return (
         <Container>
             <Row className="justify-content-md-center">
-                <Col xs lg="3">
-                    <div>
+                <Col xs lg="10">
+                    <div style={{ display: 'flex'}}>
                         {
                             products.map(prod => {
                                 return (

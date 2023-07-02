@@ -7,10 +7,10 @@ const Item = ({ id, img, name, category, price }) => {
     const navigate = useNavigate()
 
     return (
-        <Card onClick={() => navigate(`/item/${id}`)} style={{ width: '18rem' }}>
-            <Card.Img variant="top" className="img-fluid" src={img}/>
+        <Card onClick={() => navigate(`/item/${id}`)} style={{ width: '18rem'}}>
+            <Card.Img variant="top" className="img-fluid align-self-center" src={img} style={{ width: 100, height:100}} />
             <Card.Body className="text-center">
-                <Card.Title>{name}</Card.Title>
+                <Card.Title style={{ height:'60px'}}>{name}</Card.Title>
                 <Card.Text>
                     cat: {category}
                 </Card.Text>

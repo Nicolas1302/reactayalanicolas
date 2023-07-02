@@ -1,10 +1,13 @@
 import cart from './assets/cart.svg'
+import { useCart } from '../../CartContext/CartContext'
 
 const CartWidget = () => {
+    const { totalQuantity } = useCart()
+
     return ( 
         <div>
             <img src={cart}/>
-            0
+            {totalQuantity}
         </div>
     )
 }

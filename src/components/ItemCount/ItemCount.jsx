@@ -1,6 +1,6 @@
 import { useState } from "react"
 import Button from 'react-bootstrap/Button'
-import ItemDetailContainer from "../ItemDetailContainer/ItemDetailContainer"
+
 
 const ItemCount = ({stock, onAdd}) => {
     const [count, setCount] = useState(1)
