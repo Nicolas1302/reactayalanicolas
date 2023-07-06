@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { useState, createContext, useContext } from 'react'
 
 const CartContext = createContext({
     cart: []
@@ -35,8 +35,22 @@ export const CartProvider = ({ children }) => {
 
     const totalQuantity = getTotalQuantity()
 
+    const getTotal = () => {
+        let total = 0
+
+        cart.forEach(prod => {
+            total += prod.quantity * prod.price
+        })
+
+        return total
+    }
+
+    const total = getTotal()
+
+    const clearCart = () => setCart([])
+
     return (
-        <CartContext.Provider value={{ cart, addItem, totalQuantity }}>
+        <CartContext.Provider value={{ cart, addItem, totalQuantity, total, clearCart }}>
             {children}
         </CartContext.Provider>
     )

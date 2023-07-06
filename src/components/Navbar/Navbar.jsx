@@ -29,7 +29,7 @@ export const Nav = () => {
                 </Button>
             </div>
             <Button variant="warning">
-                <CartWidget/>
+                <NavLink to={'/cart'} className="text-white text-decoration-none"><CartWidget/></NavLink>                
             </Button>
             
         </Navbar>

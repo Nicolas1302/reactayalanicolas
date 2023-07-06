@@ -1,5 +1,6 @@
 import { useState } from "react"
 import ItemCount from "../ItemCount/ItemCount"
+import { Link } from 'react-router-dom'
 
 import { useCart } from "../../CartContext/CartContext"
 import { useNotification } from "../../notification/NotificationService"
@@ -32,10 +33,11 @@ const ItemDetail = ({ id, name, img, price, category, description, stock }) => {
             {
                 quantity == 0 
                     ? ( stock > 0 ? <ItemCount stock={stock} onAdd={handleOnAdd}/> : <p>No hay stock del producto</p>)
-                    : <button className="btn btn-warning">finalizar compra</button>
+                    : <button className="btn btn-warning"><Link to='/cart'>finalizar compra</Link></button>
             }
         </div>
     )
 }
 
 export default ItemDetail
+
