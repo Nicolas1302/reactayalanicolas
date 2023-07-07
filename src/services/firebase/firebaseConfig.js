@@ -9,12 +9,12 @@ import {getFirestore} from 'firebase/firestore'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBzp0AuXMsFxq18pU7oQ4tPC68ixv-86fE",
-  authDomain: "cursonicolasreactjs.firebaseapp.com",
-  projectId: "cursonicolasreactjs",
-  storageBucket: "cursonicolasreactjs.appspot.com",
-  messagingSenderId: "558758469347",
-  appId: "1:558758469347:web:df4ee4b6ae327ab6912fd6"
+  apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain ,
+  projectId: import.meta.env.VITE_projectId ,
+  storageBucket: import.meta.env.VITE_storageBucket ,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId
 };
 
 // Initialize Firebase

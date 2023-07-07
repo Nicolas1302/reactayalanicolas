@@ -3,46 +3,29 @@ import { useState, useEffect } from "react"
 import ItemListOtro from "../ItemList/ItemList"
 
 import { useParams } from "react-router-dom"
-import { getDocs, collection, query, where } from "firebase/firestore"
-import {db} from '../../services/firebase/firebaseConfig'
+
+import { useAsync } from '../../hooks/useAsync'
+
+import { getProducts } from '../../services/firebase/firestore/products'
+
+
 
 const ItemListContainer = ({ greeting }) => {
-    const [products, setProducts] = useState([])
-
     const { categoryId } = useParams()
+    
+    const getProductsWithCategory = () => getProducts(categoryId)
 
-    useEffect(() => {
-        const productsRef = !categoryId 
-            ? collection(db, 'products')
-            : query(collection(db, 'products'), where('category', '==', categoryId))
+    const { data: products, error, loading } = useAsync(getProductsWithCategory, [categoryId])
+    
+    if(loading) {
+        return <h1>Loading...</h1>
+    }
 
-        getDocs(productsRef)
-            .then(querySnapshot =>{
-                const productsAdapted = querySnapshot.docs.map(doc => {
-                    const fields = doc.data()
-                    return { id: doc.id, ...fields }
-
-                })
-                console.log(productsAdapted)
-                setProducts(productsAdapted)
-            })
-            // .finality (() => (
-            //     setLoading(false)
-            // ))
-
-    }, [categoryId])
-
-    // useEffect(() => {
-
-    //     const asyncFunction = categoryId ? getProductsByCategory : getProducts
-
-    //     asyncFunction(categoryId)
-    //         .then(response => {
-    //             setProducts(response)
-    //         }) 
+    if(error) {
+        return <h1>Hubo un error al obtener los productos</h1>
+    }
     
 
-    // }, [categoryId])
 
     return (
         <div>
