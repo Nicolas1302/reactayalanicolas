@@ -1,3 +1,4 @@
+import './App.css'
 import Navbar from './components/Navbar/Navbar'
 import ItemListContainer from './components/ItemListContainer/ItemListContainer'
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer'
@@ -12,11 +13,11 @@ import { NotificationProvider } from "./notification/NotificationService"
 
 const App = () => {
   return (
-    <>
+    <div className='backgroud'>
       <BrowserRouter>
         <NotificationProvider>
           <CartProvider>
-            <Navbar />
+            <Navbar/>
             <Routes>
               <Route path='/' element={<ItemListContainer greeting={'Bienvenidos a mi Ecommerce'}/>}/>
               <Route path='/category/:categoryId' element={<ItemListContainer greeting={'Productos Filtrados'}/>}/>
@@ -28,7 +29,7 @@ const App = () => {
           </CartProvider>
         </NotificationProvider>
       </BrowserRouter>
-    </>
+    </div>
   )
 }
 

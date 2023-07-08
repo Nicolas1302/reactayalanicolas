@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react"
-// import { getProducts, getProductsByCategory } from "../../asyncMock"
+
 import ItemListOtro from "../ItemList/ItemList"
 
 import { useParams } from "react-router-dom"
@@ -12,8 +11,9 @@ import { getProducts } from '../../services/firebase/firestore/products'
 
 const ItemListContainer = ({ greeting }) => {
     const { categoryId } = useParams()
-    
+
     const getProductsWithCategory = () => getProducts(categoryId)
+
 
     const { data: products, error, loading } = useAsync(getProductsWithCategory, [categoryId])
     
@@ -29,8 +29,13 @@ const ItemListContainer = ({ greeting }) => {
 
     return (
         <div>
-            <h1 className="text-center">{greeting}</h1>
-            <ItemListOtro products={products}/>
+            <h1 className="text-center my-5">{greeting}</h1>
+            <div className="container text-center">
+                <div className="row row-gap-4 justify-content-center">
+                    <ItemListOtro products={products}/>  
+                </div>    
+            </div>
+            
         </div>
     )
 }

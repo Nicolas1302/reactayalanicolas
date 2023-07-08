@@ -1,3 +1,4 @@
+import '../../App.css'
 import { useState, useEffect } from 'react' 
 // import { getProductById } from "../../asyncMock"
 import ItemDetail from '../ItemDetail/ItemDetail'
@@ -22,22 +23,12 @@ const ItemDetailContainer = () => {
 
                 setProduct(productAdapted)
             })
-
-
-
-        // getProductById(itemId)
-        //     .then(response => {
-        //         setProduct(response)
-        //     })
-        //     .catch(error => {
-        //         console.log(error)
-        //     })
     }, [itemId])
 
     return (
         <div>
             <h1>Detalle de producto</h1>
-            <ItemDetail {...product} />
+            <ItemDetail {...product}/>
         </div>
     )
 }

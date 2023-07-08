@@ -24,7 +24,7 @@ const ItemDetail = ({ id, name, img, price, category, description, stock }) => {
     }
 
     return (
-        <div className="text-center">
+        <div className="text-center mb-4">
             <h1>{name}</h1>
             <img src={img} alt={name} style={{ width: 100}} />
             <p>category: {category}</p>
