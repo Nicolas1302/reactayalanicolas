@@ -1,3 +1,4 @@
+import './ItemDetail.css'
 import { useState } from "react"
 import ItemCount from "../ItemCount/ItemCount"
 import { Link } from 'react-router-dom'
@@ -24,18 +25,23 @@ const ItemDetail = ({ id, name, img, price, category, description, stock }) => {
     }
 
     return (
-        <div className="text-center mb-4">
-            <h1>{name}</h1>
-            <img src={img} alt={name} style={{ width: 100}} />
-            <p>category: {category}</p>
-            <p>${price}</p>
-            <p>Description: {description}</p>
-            {
-                quantity == 0 
-                    ? ( stock > 0 ? <ItemCount stock={stock} onAdd={handleOnAdd}/> : <p>No hay stock del producto</p>)
-                    : <button className="btn btn-warning"><Link to='/cart'>finalizar compra</Link></button>
-            }
+        <div className="detail">
+            <div className="flex-itemDetail">
+                <img src={img} alt={name} style={{ width: 400, height:400}} />
+            </div>
+            <div className="flex-itemDetail">
+                <h1>{name}</h1>
+                <p>category: {category}</p>
+                <p>${price}</p>
+                <p>Description: {description}</p>
+                {
+                    quantity == 0 
+                        ? ( stock > 0 ? <ItemCount stock={stock} onAdd={handleOnAdd}/> : <p>No hay stock del producto</p>)
+                        : <button className="btn btn-warning"><Link to='/cart'>finalizar compra</Link></button>
+                }
+            </div>
         </div>
+        
     )
 }
 

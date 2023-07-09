@@ -7,7 +7,7 @@ const  Cart = () => {
 
     return (
         <>
-            <h1 class="text-center fs-2">Carrito</h1>
+            <h1 className="text-center fs-2">Carrito</h1>
             {
                 cart.map(prod => {
                     return (
@@ -25,8 +25,8 @@ const  Cart = () => {
                 <h1 className='flex-item'>${total}</h1>
             </div>
             
-            <div class="d-grid col-6 mx-auto text-center">
-                <Link to='/checkout' class="btn btn-primary border border-dark border-3 rounded-pill" type="button">
+            <div className="d-grid col-6 mx-auto text-center">
+                <Link to='/checkout' className="btn btn-primary border border-dark border-3 rounded-pill" type="button">
                     CHECKOUT
                 </Link>
             </div>

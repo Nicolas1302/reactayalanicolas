@@ -1,4 +1,4 @@
-import { collection, query, where, documentId, getDocs, writeBatch, addDoc } from "firebase/firestore"
+import { collection, query, where, documentId, getDocs, writeBatch, addDoc, Timestamp } from "firebase/firestore"
 import { useCart } from "../../CartContext/CartContext"
 
 import { db } from "../../services/firebase/firebaseConfig"
@@ -7,6 +7,7 @@ import { useNotification } from "../../notification/NotificationService"
 import { useState } from "react"
 
 import { useNavigate } from "react-router-dom"
+import CheckoutForm from "./CheckoutForm"
 
 const Checkout = () => {
     const [loading, setLoading] = useState(false)
@@ -16,25 +17,21 @@ const Checkout = () => {
 
     const navigate = useNavigate()
 
-    const createOrder = async () => {
+    const createOrder = async ({name, phone, email}) => {
         setLoading(true)
         const objOrder = {
             buyer: {
-                name: 'Sebastian Zuviria',
-                phone: '123456789',
-                email: 'contact@sebaz.io'
+                name, phone, email
             },
             items: cart,
-            total
+            total,
+            date: Timestamp.fromDate(new Date()),
         }
 
         try {
             const ids = cart.map(prod => prod.id)
 
             const productsRef = query(collection(db, 'products'), where(documentId(), 'in', ids))
-    
-            // getDocs(productsRef).then(querySnapshot => {
-            // })
     
             const { docs } = await getDocs(productsRef)
     
@@ -50,7 +47,6 @@ const Checkout = () => {
                 const prodQuantity = productAddedToCart?.quantity
     
                 if(stockDb >= prodQuantity) {
-                    //updateDoc
                     batch.update(doc.ref, { stock: stockDb - prodQuantity })
                 } else {
                     outOfStock.push({ id: doc.id, ...fieldsDoc})
@@ -86,10 +82,9 @@ const Checkout = () => {
     return (
         <>
             <h1>Checkout</h1>
-            <h2>Formulario</h2>
-            <button onClick={createOrder}>Generar orden de compra</button>
+            <CheckoutForm onConfirm={createOrder}/>
         </>
     )
 }
-
+//
 export default Checkout 
